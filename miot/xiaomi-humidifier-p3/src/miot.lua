@@ -1,7 +1,22 @@
 local socket = require "socket"
 local json = require "st.json"
-local security = require "st.security"
+local cipher = require "openssl.cipher"
 local md5 = require "md5"
+
+local security = {}
+function security.encrypt_bytes(data, key, opts)
+    local alg = opts.cipher == "aes-128-cbc" and "AES-128-CBC" or "AES-128-CBC"
+    if opts.cipher == "aes128-cbc" then alg = "AES-128-CBC" end
+    local c = cipher.new(alg)
+    return c:encrypt(key, opts.iv):final(data)
+end
+
+function security.decrypt_bytes(data, key, opts)
+    local alg = opts.cipher == "aes-128-cbc" and "AES-128-CBC" or "AES-128-CBC"
+    if opts.cipher == "aes128-cbc" then alg = "AES-128-CBC" end
+    local c = cipher.new(alg)
+    return c:decrypt(key, opts.iv):final(data)
+end
 
 -- MIoT 프로토콜 모듈
 local miot = {}
