@@ -271,7 +271,7 @@ local driver = Driver("miot-humidifier-p3", {
             [cap_fanmode.commands.setFanMode.NAME] = set_mode_handler
         },
         [cap_targethumidity.ID] = {
-            [cap_targethumidity.commands.setHumidifierSetpoint.NAME] = set_target_humidity_handler
+            [cap_targethumidity.commands.setTargetHumidity.NAME] = set_target_humidity_handler
         },
         [capabilities.refresh.ID] = {
             [capabilities.refresh.commands.refresh.NAME] = refresh_handler
